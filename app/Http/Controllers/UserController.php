@@ -18,11 +18,9 @@ class UserController extends Controller
         $user = User::query()
             ->create($request->validated());
 
-        return response()->json([
-            'result' => 'success',
-            'message' => 'User created',
-            'data' => new UserResource($user),
-        ]);
+        return $this->successResponse('User created',
+            new UserResource($user)
+        );
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse
@@ -31,20 +29,15 @@ class UserController extends Controller
 
         $user->fresh();
 
-        return response()->json([
-            'result' => 'success',
-            'message' => 'User updated',
-            'data' => new UserResource($user),
-        ]);
+        return $this->successResponse('User updated',
+            new UserResource($user)
+        );
     }
 
     public function destroy(User $user): JsonResponse
     {
         $user->delete();
 
-        return response()->json([
-            'result' => 'success',
-            'message' => 'User deleted',
-        ]);
+        return $this->successResponse('User deleted');
     }
 }

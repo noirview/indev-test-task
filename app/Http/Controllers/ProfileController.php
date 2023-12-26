@@ -17,10 +17,8 @@ class ProfileController extends Controller
 
         $user = $user->fresh();
 
-        return response()->json([
-            'result' => 'success',
-            'message' => 'Profile updated',
-            'data' => new ProfileResource($user),
-        ]);
+        return $this->successResponse('Profile updated',
+            new ProfileResource($user)
+        );
     }
 }
