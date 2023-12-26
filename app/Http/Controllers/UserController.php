@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Models\User;
@@ -13,6 +14,10 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private UserRepository $repository,
+    ) {}
+
     public function store(StoreUserRequest $request): JsonResponse
     {
         $user = User::query()
@@ -25,9 +30,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
-        $user->update($request->validated());
-
-        $user->fresh();
+        $user = $this->repository->update($user, $request->validated());
 
         return $this->successResponse('User updated',
             new UserResource($user)
