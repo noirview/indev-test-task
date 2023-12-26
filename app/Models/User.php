@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
+use App\Enums\User\Role;
+
 class User extends Authenticatable implements JWTSubject
 {
     use HasUuids, HasApiTokens, HasFactory, Notifiable;
@@ -27,7 +29,13 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
 
-        'phone'
+        'phone',
+
+        'role',
+    ];
+
+    protected $attributes = [
+        'role' => Role::USER,
     ];
 
     /**
@@ -45,7 +53,6 @@ class User extends Authenticatable implements JWTSubject
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
