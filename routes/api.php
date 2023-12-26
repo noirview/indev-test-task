@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,7 +46,14 @@ Route::as('users.')
 
     ->controller(UserController::class)
     ->group(function () {
-        Route::post('', 'store')->name('store');
-        Route::put('{user}', 'update')->name('update');
-        Route::delete('{user}', 'destroy')->name('destroy');
+
+        Route::post('', 'store')->name('store')
+            ->can('create', User::class);
+
+        Route::put('{user}', 'update')->name('update')
+            ->can('update', User::class);
+
+        Route::delete('{user}', 'destroy')->name('destroy')
+            ->can('delete', User::class);
+
     });
