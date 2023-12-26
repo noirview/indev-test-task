@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user = $this->repository->update($user, $request->validated());
 
-        return $this->successResponse('Profile updated',
+        return $this->successResponse(__('responses.profile.update'),
             new ProfileResource($user)
         );
     }

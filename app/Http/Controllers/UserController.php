@@ -23,7 +23,7 @@ class UserController extends Controller
         $user = User::query()
             ->create($request->validated());
 
-        return $this->successResponse('User created',
+        return $this->successResponse(__('responses.users.store'),
             new UserResource($user)
         );
     }
@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $user = $this->repository->update($user, $request->validated());
 
-        return $this->successResponse('User updated',
+        return $this->successResponse(__('responses.users.update'),
             new UserResource($user)
         );
     }
@@ -41,6 +41,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return $this->successResponse('User deleted');
+        return $this->successResponse(__('responses.users.delete'));
     }
 }
