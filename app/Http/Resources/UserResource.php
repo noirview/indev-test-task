@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\User\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,6 +23,8 @@ class UserResource extends JsonResource
 
             'email' => $this->email,
             'phone' => $this->phone,
+
+            'role' => Role::getDescription($this->role),
         ];
     }
 }
