@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -26,6 +27,16 @@ Route::as('auth.')
     ->controller(AuthController::class)
     ->group(function () {
         Route::post('login', 'login')->name('login');
+    });
+
+Route::as('profile.')
+    ->prefix('profile')
+
+    ->middleware('auth')
+
+    ->controller(ProfileController::class)
+    ->group(function () {
+        Route::put('', 'update')->name('update');
     });
 
 Route::as('users.')
