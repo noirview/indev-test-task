@@ -44,6 +44,8 @@ Route::as('profile.')
 Route::as('users.')
     ->prefix('users')
 
+    ->middleware('auth')
+
     ->controller(UserController::class)
     ->group(function () {
 
